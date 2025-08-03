@@ -924,8 +924,8 @@
             }
         });
 
-        // Button interactions
-        document.querySelectorAll('.cta-button, .plan-button, .cta-button-white').forEach(button => {
+        // Button interactions - only for buttons that don't have href
+        document.querySelectorAll('.cta-button:not([href]), .plan-button:not([href]), .cta-button-white:not([href])').forEach(button => {
             button.addEventListener('click', function() {
                 alert('Action would be implemented here!');
             });
