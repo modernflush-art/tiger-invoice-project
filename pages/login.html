@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiger Invoice - Login</title>
+    <style>
+        :root {
+          /* Invoice theme colors */
+          --primary-color: #f97316;
+          --primary-dark: #ea580c;
+          --secondary-color: #1f2937;
+          --accent-color: #f59e0b;
+          --success-color: #10b981;
+          --error-color: #ef4444;
+          --warning-color: #f59e0b;
+          
+          /* Light theme variables */
+          --bg-primary: #f8fafc;
+          --bg-secondary: #ffffff;
+          --bg-sidebar: #ffffff;
+          --text-primary: #1f2937;
+          --text-secondary: #6b7280;
+          --text-muted: #9ca3af;
+          --border-color: #e5e7eb;
+          --border-light: #f3f4f6;
+          --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+          --hover-bg: #f9fafb;
+          --active-bg: #fef3c7;
+          --active-color: #f97316;
+          --card-bg: #ffffff;
+          --input-bg: #ffffff;
+          --input-border: #d1d5db;
+          --button-bg: #f97316;
+          --button-hover: #ea580c;
+          --button-text: #ffffff;
+        }
+
+        [data-theme="dark"] {
+          /* Dark theme variables */
+          --bg-primary: #111827;
+          --bg-secondary: #1f2937;
+          --bg-sidebar: #1f2937;
+          --text-primary: #f9fafb;
+          --text-secondary: #d1d5db;
+          --text-muted: #9ca3af;
+          --border-color: #374151;
+          --border-light: #4b5563;
+          --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+          --hover-bg: #374151;
+          --active-bg: #451a03;
+          --active-color: #f97316;
+          --card-bg: #1f2937;
+          --input-bg: #374151;
+          --input-border: #4b5563;
+          --button-bg: #f97316;
+          --button-hover: #ea580c;
+          --button-text: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            overflow: hidden;
+            width: 1200px;
+            height: 700px;
+            display: flex;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .left-section {
+            flex: 1;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px;
+            overflow: hidden;
+        }
+
+        .invoice-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(249, 115, 22, 0.9) 0%, 
+                rgba(234, 88, 12, 0.95) 50%, 
+                rgba(31, 41, 55, 0.98) 100%);
+            opacity: 0.95;
+        }
+
+        .invoice-bg::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23f97316;stop-opacity:0.8" /><stop offset="100%" style="stop-color:%23ea580c;stop-opacity:0.9" /></linearGradient></defs><path d="M0,350 Q200,200 400,300 T800,250 L1000,300 L1000,600 L0,600 Z" fill="url(%23grad1)" opacity="0.7"/><path d="M0,450 Q150,350 300,400 T600,380 L1000,400 L1000,600 L0,600 Z" fill="url(%23grad1)" opacity="0.8"/><path d="M0,500 Q100,450 200,480 T400,470 L1000,480 L1000,600 L0,600 Z" fill="url(%23grad1)" opacity="0.9"/></svg>') no-repeat center bottom;
+            background-size: cover;
+        }
+
+        .logo {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            z-index: 10;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #f97316;
+            font-size: 20px;
+        }
+
+        .back-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        .hero-content {
+            z-index: 10;
+            position: relative;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .dot.active {
+            background: white;
+        }
+
+        .right-section {
+            flex: 1;
+            background: var(--card-bg);
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .form-title {
+            color: var(--text-primary);
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .form-subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        .login-link {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--input-border);
+            border-radius: 12px;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .password-toggle:hover {
+            background: var(--hover-bg);
+            color: var(--text-primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--input-border);
+            border-radius: 4px;
+            background: transparent;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox.checked {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .checkbox-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .checkbox-label a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        .create-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
+        }
+
+        .create-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .divider span {
+            background: var(--card-bg);
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            border-color: var(--primary-color);
+            background: var(--active-bg);
+            transform: translateY(-1px);
+        }
+
+        .social-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .google-icon {
+            background: linear-gradient(45deg, #4285f4, #ea4335, #fbbc05, #34a853);
+            color: white;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 95%;
+                height: auto;
+            }
+            
+            .left-section {
+                min-height: 300px;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+        <span id="themeIcon">🌙</span>
+        <span id="themeText">Dark</span>
+    </button>
+    <div class="container">
+        <div class="left-section">
+            <div class="invoice-bg"></div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div class="logo">
+                    <div class="logo-icon">T</div>
+                    Tiger Invoice
+                </div>
+                <a href="main.html" class="back-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to website
+                </a>
+            </div>
+            
+            <div class="hero-content">
+                <h1 class="hero-title">Professional<br>Invoice Management</h1>
+                <p class="hero-subtitle">Streamline your business with powerful invoicing tools</p>
+                
+                <ul class="features-list">
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        Create professional invoices instantly
+                    </li>
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        Track payments and manage customers
+                    </li>
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        Generate reports and analytics
+                    </li>
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        Secure cloud storage and backup
+                    </li>
+                </ul>
+                
+                <div class="carousel-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot active"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="form-container">
+                <h2 class="form-title">Welcome Back</h2>
+                <p class="form-subtitle">Sign in to your Tiger Invoice account</p>
+                <p class="login-link">Don't have an account? <a href="#">Create one</a></p>
+                
+                <form id="signupForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="First name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Last name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="Email address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="password-container">
+                            <input type="password" class="form-input" placeholder="Enter your password" required>
+                            <button type="button" class="password-toggle">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox" id="termsCheckbox"></div>
+                        <label class="checkbox-label">
+                            I agree to the <a href="#">Terms & Conditions</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="create-btn">Create account</button>
+                </form>
+                
+                <div class="divider">
+                    <span>Or continue with</span>
+                </div>
+                
+                <div class="social-buttons">
+                    <a href="#" id="googleLoginBtn" class="social-btn">
+                        <div class="social-icon google-icon">G</div>
+                        Google
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <!-- Firebase Auth SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+    <script>
+        // Theme management
+        function initTheme() {
+          const savedTheme = localStorage.getItem('theme') || 'light';
+          document.documentElement.setAttribute('data-theme', savedTheme);
+          updateThemeUI(savedTheme);
+        }
+
+        function toggleTheme() {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          updateThemeUI(newTheme);
+        }
+
+        function updateThemeUI(theme) {
+          const themeIcon = document.getElementById('themeIcon');
+          const themeText = document.getElementById('themeText');
+          
+          if (theme === 'dark') {
+            themeIcon.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+            themeText.textContent = 'Light';
+          } else {
+            themeIcon.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+            themeText.textContent = 'Dark';
+          }
+        }
+
+        // Initialize theme on page load
+        initTheme();
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC2vUhY8zpsS60dAaxIVXqszC5180sGobc",
+            authDomain: "tigerpower-86ca1.firebaseapp.com",
+            projectId: "tigerpower-86ca1",
+            storageBucket: "tigerpower-86ca1.firebasestorage.app",
+            messagingSenderId: "493107786425",
+            appId: "1:493107786425:web:39a1448aeba5b9e619e168",
+            measurementId: "G-RSSQPCLEDZ"
+        };
+        
+        // Validate Firebase configuration
+        if (!firebaseConfig.apiKey || !firebaseConfig.authDomain || !firebaseConfig.projectId) {
+            console.error('Firebase configuration is incomplete');
+        }
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        
+        // Add Firebase initialization check
+        console.log('Firebase initialized:', !!app);
+        console.log('Firebase Auth initialized:', !!auth);
+        
+        // Test Firebase connection
+        auth.onAuthStateChanged(function(user) {
+            console.log('Auth state changed:', user ? 'User logged in' : 'No user');
+        });
+    </script>
+    <script>
+    // --- UI State ---
+    let isSignUp = true;
+    const formTitle = document.querySelector('.form-title');
+    const formSubtitle = document.querySelector('.form-subtitle');
+    const loginLink = document.querySelector('.login-link a');
+    const signupForm = document.getElementById('signupForm');
+    const submitBtn = document.querySelector('.create-btn');
+    const errorDiv = document.createElement('div');
+    errorDiv.style.color = '#ef4444';
+    errorDiv.style.marginBottom = '10px';
+    errorDiv.style.textAlign = 'center';
+    errorDiv.style.fontSize = '15px';
+    errorDiv.style.padding = '12px';
+    errorDiv.style.borderRadius = '8px';
+    errorDiv.style.backgroundColor = '#fef2f2';
+    errorDiv.style.border = '1px solid #fecaca';
+    submitBtn.parentNode.insertBefore(errorDiv, submitBtn);
+    
+    // Email verification message
+    const verifyDiv = document.createElement('div');
+    verifyDiv.style.color = '#fff';
+    verifyDiv.style.background = 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)';
+    verifyDiv.style.padding = '18px 12px';
+    verifyDiv.style.borderRadius = '12px';
+    verifyDiv.style.textAlign = 'center';
+    verifyDiv.style.marginBottom = '18px';
+    verifyDiv.style.display = 'none';
+    verifyDiv.style.fontSize = '16px';
+    signupForm.parentNode.insertBefore(verifyDiv, signupForm);
+    
+    // Resend verification button
+    const resendBtn = document.createElement('button');
+    resendBtn.textContent = 'Resend verification email';
+    resendBtn.style.marginTop = '10px';
+    resendBtn.style.background = 'none';
+    resendBtn.style.border = '1px solid #fff';
+    resendBtn.style.color = '#fff';
+    resendBtn.style.padding = '8px 16px';
+    resendBtn.style.borderRadius = '8px';
+    resendBtn.style.cursor = 'pointer';
+    resendBtn.style.display = 'block';
+    resendBtn.style.marginLeft = 'auto';
+    resendBtn.style.marginRight = 'auto';
+    resendBtn.style.fontSize = '15px';
+    resendBtn.onclick = function(e) {
+      e.preventDefault();
+      resendVerification();
+    };
+    verifyDiv.appendChild(resendBtn);
+    let lastUnverifiedUser = null;
+
+    function setFormMode(signup) {
+        isSignUp = signup;
+        if (signup) {
+            formTitle.textContent = 'Create Account';
+            formSubtitle.textContent = 'Join Tiger Invoice today';
+            submitBtn.textContent = 'Create account';
+            loginLink.textContent = 'Sign in';
+            loginLink.parentNode.childNodes[0].textContent = 'Already have an account? ';
+        } else {
+            formTitle.textContent = 'Welcome Back';
+            formSubtitle.textContent = 'Sign in to your Tiger Invoice account';
+            submitBtn.textContent = 'Sign in';
+            loginLink.textContent = 'Create one';
+            loginLink.parentNode.childNodes[0].textContent = 'Don\'t have an account? ';
+        }
+        errorDiv.textContent = '';
+        verifyDiv.style.display = 'none';
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+    }
+    setFormMode(true);
+    loginLink.onclick = function(e) {
+        e.preventDefault();
+        setFormMode(!isSignUp);
+    };
+
+    // --- Form Submission ---
+    signupForm.onsubmit = function(e) {
+        e.preventDefault();
+        errorDiv.textContent = '';
+        submitBtn.textContent = isSignUp ? 'Creating account...' : 'Signing in...';
+        submitBtn.style.opacity = '0.7';
+        submitBtn.disabled = true;
+
+        const inputs = signupForm.querySelectorAll('.form-input');
+        const firstName = inputs[0].value.trim();
+        const lastName = inputs[1].value.trim();
+        const email = inputs[2].value.trim();
+        const password = inputs[3].value;
+        const isChecked = document.getElementById('termsCheckbox').classList.contains('checked');
+
+        if (isSignUp && !isChecked) {
+            errorDiv.textContent = 'Please agree to the Terms & Conditions';
+            submitBtn.textContent = 'Create account';
+            submitBtn.style.opacity = '1';
+            submitBtn.disabled = false;
+            return;
+        }
+
+        if (isSignUp) {
+            // Add input validation
+            if (!email || !password || !firstName || !lastName) {
+                errorDiv.textContent = 'Please fill in all required fields.';
+                submitBtn.textContent = 'Create account';
+                submitBtn.style.opacity = '1';
+                submitBtn.disabled = false;
+                return;
+            }
+
+            if (password.length < 6) {
+                errorDiv.textContent = 'Password must be at least 6 characters long.';
+                submitBtn.textContent = 'Create account';
+                submitBtn.style.opacity = '1';
+                submitBtn.disabled = false;
+                return;
+            }
+
+            // Check if Firebase is properly initialized
+            if (!auth) {
+                errorDiv.textContent = 'Authentication service not available. Please refresh the page and try again.';
+                submitBtn.textContent = 'Create account';
+                submitBtn.style.opacity = '1';
+                submitBtn.disabled = false;
+                return;
+            }
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    console.log('User created successfully:', userCredential.user.uid);
+                    return userCredential.user.updateProfile({
+                        displayName: `${firstName} ${lastName}`
+                    }).then(() => userCredential.user);
+                })
+                .then(user => {
+                    console.log('Profile updated successfully');
+                    // Send verification email with better error handling
+                    return user.sendEmailVerification()
+                        .then(() => {
+                            console.log('Verification email sent successfully');
+                            return user;
+                        })
+                        .catch(error => {
+                            console.error('Error sending verification email:', error);
+                            // Handle rate limiting errors
+                            if (error.code === 'auth/too-many-requests') {
+                                throw new Error('Too many verification requests. Please wait 5 minutes before trying again.');
+                            } else if (error.code === 'auth/network-request-failed') {
+                                throw new Error('Network error. Please check your connection and try again.');
+                            } else if (error.code === 'auth/invalid-email') {
+                                throw new Error('Invalid email address. Please check your email and try again.');
+                            } else {
+                                throw new Error(`Verification email error: ${error.message}`);
+                            }
+                        });
+                })
+                .then(user => {
+                    verifyDiv.innerHTML = `A verification email has been sent to <b>${user.email}</b>.<br>Please check your inbox and verify your email before signing in.`;
+                    verifyDiv.appendChild(resendBtn);
+                    verifyDiv.style.display = 'block';
+                    lastUnverifiedUser = user;
+                    submitBtn.textContent = 'Create account';
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                    errorDiv.textContent = '';
+                })
+                .catch(error => {
+                    console.error('Sign up error:', error);
+                    let errorMessage = 'An error occurred during sign up.';
+                    
+                    if (error.code === 'auth/email-already-in-use') {
+                        errorMessage = 'An account with this email already exists. Please sign in instead.';
+                    } else if (error.code === 'auth/invalid-email') {
+                        errorMessage = 'Please enter a valid email address.';
+                    } else if (error.code === 'auth/weak-password') {
+                        errorMessage = 'Password is too weak. Please choose a stronger password.';
+                    } else if (error.code === 'auth/network-request-failed') {
+                        errorMessage = 'Network error. Please check your connection and try again.';
+                    } else if (error.code === 'auth/too-many-requests') {
+                        errorMessage = 'Too many sign up attempts. Please wait a few minutes before trying again.';
+                    } else if (error.message) {
+                        errorMessage = error.message;
+                    }
+                    
+                    errorDiv.textContent = errorMessage;
+                    submitBtn.textContent = 'Create account';
+                    submitBtn.style.opacity = '1';
+                    submitBtn.disabled = false;
+                });
+        } else {
+            // Add input validation for sign in
+            if (!email || !password) {
+                errorDiv.textContent = 'Please enter both email and password.';
+                submitBtn.textContent = 'Sign in';
+                submitBtn.style.opacity = '1';
+                submitBtn.disabled = false;
+                return;
+            }
+
+            // Check if Firebase is properly initialized
+            if (!auth) {
+                errorDiv.textContent = 'Authentication service not available. Please refresh the page and try again.';
+                submitBtn.textContent = 'Sign in';
+                submitBtn.style.opacity = '1';
+                submitBtn.disabled = false;
+                return;
+            }
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    console.log('User signed in successfully:', userCredential.user.uid);
+                    if (!userCredential.user.emailVerified) {
+                       lastUnverifiedUser = userCredential.user;
+                       verifyDiv.innerHTML = `Your email <b>${userCredential.user.email}</b> is not verified.<br>Please check your inbox and verify your email before signing in.`;
+                       verifyDiv.appendChild(resendBtn);
+                       verifyDiv.style.display = 'block';
+                       errorDiv.textContent = '';
+                       submitBtn.textContent = 'Sign in';
+                       submitBtn.disabled = false;
+                       submitBtn.style.opacity = '1';
+                       auth.signOut();
+                       return;
+                    }
+                    window.location.href = 'index.html';
+                })
+                .catch(error => {
+                    console.error('Sign in error:', error);
+                    let errorMessage = 'An error occurred during sign in.';
+                    
+                    if (error.code === 'auth/user-not-found') {
+                        errorMessage = 'No account found with this email address. Please sign up instead.';
+                    } else if (error.code === 'auth/wrong-password') {
+                        errorMessage = 'Incorrect password. Please try again.';
+                    } else if (error.code === 'auth/invalid-email') {
+                        errorMessage = 'Please enter a valid email address.';
+                    } else if (error.code === 'auth/network-request-failed') {
+                        errorMessage = 'Network error. Please check your connection and try again.';
+                    } else if (error.code === 'auth/too-many-requests') {
+                        errorMessage = 'Too many sign in attempts. Please wait a few minutes before trying again.';
+                    } else if (error.code === 'auth/user-disabled') {
+                        errorMessage = 'This account has been disabled. Please contact support.';
+                    } else if (error.message) {
+                        errorMessage = error.message;
+                    }
+                    
+                    errorDiv.textContent = errorMessage;
+                    submitBtn.textContent = 'Sign in';
+                    submitBtn.style.opacity = '1';
+                    submitBtn.disabled = false;
+                });
+        }
+    };
+
+    // Resend verification email logic with rate limiting
+    let resendAttempts = 0;
+    let lastResendTime = 0;
+    const RESEND_COOLDOWN = 60000; // 1 minute cooldown
+
+    // Reset rate limiting when page loads
+    function resetRateLimiting() {
+        resendAttempts = 0;
+        lastResendTime = 0;
+    }
+
+    // Call reset on page load
+    resetRateLimiting();
+
+    function resendVerification() {
+      if (!lastUnverifiedUser) return;
+      
+      const now = Date.now();
+      const timeSinceLastResend = now - lastResendTime;
+      
+      // Check if we're still in cooldown period
+      if (timeSinceLastResend < RESEND_COOLDOWN) {
+        const remainingTime = Math.ceil((RESEND_COOLDOWN - timeSinceLastResend) / 1000);
+        verifyDiv.innerHTML = `Please wait <b>${remainingTime} seconds</b> before requesting another verification email.`;
+        verifyDiv.appendChild(resendBtn);
+        
+        // Start countdown timer
+        const countdownInterval = setInterval(() => {
+          const newRemainingTime = Math.ceil((RESEND_COOLDOWN - (Date.now() - lastResendTime)) / 1000);
+          if (newRemainingTime <= 0) {
+            clearInterval(countdownInterval);
+            verifyDiv.innerHTML = `A verification email has been sent to <b>${lastUnverifiedUser.email}</b>.<br>Please check your inbox and verify your email before signing in.`;
+            verifyDiv.appendChild(resendBtn);
+          } else {
+            verifyDiv.innerHTML = `Please wait <b>${newRemainingTime} seconds</b> before requesting another verification email.`;
+            verifyDiv.appendChild(resendBtn);
+          }
+        }, 1000);
+        
+        return;
+      }
+      
+      // Check if we've exceeded maximum attempts
+      if (resendAttempts >= 3) {
+        verifyDiv.innerHTML = `Too many verification attempts. Please try again in <b>5 minutes</b> or contact support.<br><br><small>You can also try signing up with a different email address.</small>`;
+        verifyDiv.appendChild(resendBtn);
+        return;
+      }
+      
+      resendAttempts++;
+      lastResendTime = now;
+      
+      lastUnverifiedUser.sendEmailVerification()
+        .then(() => {
+          verifyDiv.innerHTML = `A new verification email has been sent to <b>${lastUnverifiedUser.email}</b>.<br>Please check your inbox and verify your email before signing in.`;
+          verifyDiv.appendChild(resendBtn);
+        })
+        .catch(error => {
+          let errorMessage = 'Error sending verification email.';
+          
+          if (error.code === 'auth/too-many-requests') {
+            errorMessage = 'Too many verification requests. Please wait 5 minutes before trying again.';
+            resendAttempts = 3; // Prevent further attempts
+          } else if (error.code === 'auth/network-request-failed') {
+            errorMessage = 'Network error. Please check your connection and try again.';
+          } else if (error.code === 'auth/user-not-found') {
+            errorMessage = 'User account not found. Please try signing up again.';
+          } else {
+            errorMessage = `Error: ${error.message}`;
+          }
+          
+          verifyDiv.innerHTML = errorMessage;
+          verifyDiv.appendChild(resendBtn);
+        });
+    }
+
+    // --- Google Sign In ---
+    document.getElementById('googleLoginBtn').onclick = function(e) {
+        e.preventDefault();
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+            .then(result => {
+                // If new user, optionally send verification or set displayName
+                window.location.href = 'index.html';
+            })
+            .catch(error => {
+                errorDiv.textContent = error.message;
+            });
+    };
+    </script>
+
+    <script>
+        // Password toggle functionality
+        const passwordToggle = document.querySelector('.password-toggle');
+        const passwordInput = document.querySelector('input[type="password"]');
+        
+        passwordToggle.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            if (type === 'password') {
+                this.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+            } else {
+                this.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+            }
+        });
+
+        // Checkbox functionality
+        const checkbox = document.getElementById('termsCheckbox');
+        let isChecked = false;
+        
+        checkbox.addEventListener('click', function() {
+            isChecked = !isChecked;
+            this.classList.toggle('checked', isChecked);
+        });
+
+        // Carousel dots animation
+        const dots = document.querySelectorAll('.dot');
+        let currentDot = 2;
+        
+        setInterval(() => {
+            dots[currentDot].classList.remove('active');
+            currentDot = (currentDot + 1) % dots.length;
+            dots[currentDot].classList.add('active');
+        }, 3000);
+
+        // Input focus effects
+        const inputs = document.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Social button hover effects
+        const socialBtns = document.querySelectorAll('.social-btn');
+        socialBtns.forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.boxShadow = 'none';
+            });
+        });
+    </script>
+
+
+</body>
+</html>

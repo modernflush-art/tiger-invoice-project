@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiger Invoice - Welcome</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .welcome-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+        }
+        .logo {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .welcome-text {
+            font-size: 24px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .start-btn {
+            background: white;
+            color: #f97316;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .flow-info {
+            margin-top: 30px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="logo">🐯 Tiger Invoice</div>
+        <div class="welcome-text">Welcome to your organized invoice management system</div>
+        <a href="main.html" class="start-btn">Get Started</a>
+        <div class="flow-info">
+            <strong>Flow:</strong> Landing → Login → Dashboard
+        </div>
+    </div>
+</body>
+</html> 
